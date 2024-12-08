@@ -79,8 +79,8 @@ def eliminar_fotos_alumnos_id(id:int, sesion:Session=Depends(generador_sesion)):
 
 @app.delete("/alumnos/{id}")
 def eliminar_alumnos_id(id:int, sesion:Session=Depends(generador_sesion)):
-    eliminar_calificaciones_alumno_id(id, sesion)
-    eliminar_fotos_alumnos_id(id, sesion)
-    eliminar_alumnos_id(id, sesion)
+    repo.eliminar_calificaciones_alumno_id(id, sesion)
+    repo.eliminar_fotos_alumnos_id(id, sesion)
+    repo.eliminar_alumnos_id(id, sesion)
 
     return {"usuario eliminado" : "ok"}
