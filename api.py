@@ -19,10 +19,13 @@ def obtener_alumnos(sesion:Session=Depends(generador_sesion)):
     return repo.obtener_alumnos(sesion) 
 
 
-"""
-@app.get("/alumnos/{id}")
-def obtener_alumnos_id(id:int):
 
+@app.get("/alumnos/{id}")
+def obtener_alumnos_id(id:int, sesion: Session=Depends(generador_sesion)):
+    print("Api hace una consulta de usuarios por id")
+    return repo.obtener_alumnos(id,sesion)
+
+"""
 @app.get("/alumnos/{id}/calificaciones")
 def obtener_calificaciones_alumnos_id(id:int):
 
