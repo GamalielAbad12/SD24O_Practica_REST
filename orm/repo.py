@@ -32,12 +32,27 @@ def obtener_calificaciones(sesion:Session):
     print("SELECT * FROM app.calificaciones")
     return sesion.query(modelos.Calificacion).all()
 
-#
-def obtener_fotos_alumnos_id(id:int, sesion:Session):
+#SELECT * FROM app.calificaciones WHERE id=alumno
+def obtener_calificaciones_alumno_id(id:int, sesion:Session):
+    print("SELECT * FROM app.calificaciones WHERE id=id")
+    return sesion.query(modelos.Calificacion.id==id).all()
+
+#SELECT * FROM app.calificaciones WHERE id=id
+def obtener_calificaciones_id(id:int, sesion:Session):
     print("SELECT * FROM app.fotos WHERE id_alumnos={id_al}")
     return sesion.query(modelos.Foto).filter(modelos.Foto.id_alumno==id).all()
 
-#SELECT * FROM app.calificaciones WHERE id=alumno}
-def obtener_calificaciones_id(id:int, sesion:Session):
-    print("SELECT * FROM app.calificaciones WHERE id=id_alumno")
-    return sesion.query(modelos.Calificacion.id)
+#DELETE FROM app.alumnos WHERE id_alumnos={id_al}
+def eliminar_alumnos_id(id:int, sesion:Session):
+    print("DELETE FROM app.alumnos WHERE id_alumnos={id_al}")
+    alumno_id = obtener_alumnos_id(id, sesion)
+    if alumno_id is not None:
+        sesion.delete(alumno_id)
+        sesion.commit() 
+    respuesta = {"mensaje": "Usuario eliminado"}
+
+
+#DELETE FROM app.calificaciones WHERE id_alumnos={id_al}
+
+
+#DELETE FROM app.fotos WHERE id_alumnos={id_al}

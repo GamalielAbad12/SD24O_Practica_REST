@@ -44,8 +44,8 @@ def obtener_fotos_id(id:int, sesion:Session=Depends(generador_sesion)):
 
 @app.get("/calificaciones/{id}")
 def obtener_calificaciones_id(id:int, sesion:Session=Depends(generador_sesion)):
-    print("Api hace una consulta de las calificaciones con el id de la calificacion")
-    return 
+    print("Api hace una consulta de las calificaciones con el id de la calificación")
+    return repo.obtener_calificaciones_id(id, sesion)
 
 
 """
