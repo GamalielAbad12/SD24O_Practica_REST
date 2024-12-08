@@ -1,4 +1,7 @@
-from fastapi import FastAPI;
+from fastapi import FastAPI, Depends;
+from sqlalchemy.orm import Session
+from orm.config import generador_sesion
+import orm.repo as repo
 
 app = FastAPI()
 
@@ -9,9 +12,14 @@ def bienvenida():
     }
     return respuesta
 
-@app.get("/alumnos")
-def obtener_alumnos():
 
+@app.get("/alumnos")
+def obtener_alumnos(sesion:Session=Depends(generador_sesion)):
+    print("Api hace una consulta de usuarios")
+    return repo.obtener_alumnos(sesion) 
+
+
+"""
 @app.get("/alumnos/{id}")
 def obtener_alumnos_id(id:int):
 
@@ -38,4 +46,5 @@ def eliminar_fotos_alumnos_id(id:int):
 
 @app.delete("/alumnos/{id}")
 def eliminar_alumnos_id(id:int):
-    
+
+"""
