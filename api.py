@@ -2,6 +2,7 @@ from fastapi import FastAPI, Depends;
 from sqlalchemy.orm import Session
 from orm.config import generador_sesion
 import orm.repo as repo
+import orm.esquemas as esquemas
 
 app = FastAPI()
 
@@ -29,7 +30,7 @@ def obtener_alumnos_id(id:int, sesion: Session=Depends(generador_sesion)):
 @app.get("/alumnos/{id}/calificaciones")
 def obtener_calificaciones_alumnos_id(id:int, sesion: Session=Depends(generador_sesion)):
     print("Api hace una consulta de las calificaciones por id de alumno")
-    return repo.obtener_calificaciones_alumno_id(id, sesion)
+    return repo.obtener_calificaciones_alumnos_id(id, sesion)
 
 # Devuelve las fotos de un alumno específico por su ID
 @app.get("/alumnos/{id}/fotos")
@@ -63,7 +64,7 @@ def eliminar_calificaciones_id(id:int, sesion:Session=Depends(generador_sesion))
 
 # Elimina todas las calificaciones de un alumno específico por su ID
 @app.delete("/alumnos/{id}/calificaciones")
-def eliminar_calificaciones_alumno_id(id:int, sesion:Session=Depends(generador_sesion)):
+def eliminar_calificaciones_alumnos_id(id:int, sesion:Session=Depends(generador_sesion)):
     return repo.eliminar_calificaciones_alumnos_id(id, sesion)
     
 # Elimina todas las fotos de un alumno específico por su ID
@@ -75,3 +76,7 @@ def eliminar_fotos_alumnos_id(id:int, sesion:Session=Depends(generador_sesion)):
 @app.delete("/alumnos/{id}")
 def eliminar_alumnos_id(id:int, sesion:Session=Depends(generador_sesion)):
     return repo.eliminar_alumnos_id(id, sesion)
+
+@app.post("/alumnos")
+def agregar_alumnos(nuevo_alumno: esquemas.alumnoBase, sesion: Session=Depends(generador_sesion)):
+    return repo.agregar_alumnos(nuevo_alumno, sesion)

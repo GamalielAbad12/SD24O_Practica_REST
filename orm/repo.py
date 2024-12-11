@@ -1,4 +1,5 @@
 import orm.modelos as modelos
+import orm.esquemas as esquemas
 from sqlalchemy.orm import Session
 
 #SELECT * FROM app.alumnos
@@ -32,7 +33,7 @@ def obtener_calificaciones(sesion:Session):
     return sesion.query(modelos.Calificacion).all()
 
 #SELECT * FROM app.calificaciones WHERE id=alumno
-def obtener_calificaciones_alumno_id(id:int, sesion:Session):
+def obtener_calificaciones_alumnos_id(id:int, sesion:Session):
     print("SELECT * FROM app.calificaciones WHERE id={id_al}")
     return sesion.query(modelos.Calificacion).filter(modelos.Calificacion.id_alumno == id).all()
 
@@ -57,7 +58,7 @@ def eliminar_alumnos_id(id:int, sesion:Session):
 #DELETE FROM app.calificaciones WHERE id_alumnos={id_al}
 def eliminar_calificaciones_alumnos_id(id:int, sesion:Session):
     print("DELETE FROM app.calificaciones WHERE id_alumnos={id_al}")
-    calificaciones_alumno_id = obtener_calificaciones_alumno_id(id, sesion)
+    calificaciones_alumno_id = obtener_calificaciones_alumnos_id(id, sesion)
 
     if calificaciones_alumno_id is not None: 
         for calificaciones_alumno in calificaciones_alumno_id:
@@ -103,3 +104,20 @@ def eliminar_calificaciones_id(id:int, sesion:Session):
 
     respuesta = {"Mensaje":"Calificación eliminada por id"}
     return respuesta
+
+def agregar_alumnos(alumno_info: esquemas.alumnoBase, sesion:Session):
+    alumno_bd = modelos.Alumno()
+
+    alumno_bd.nombre = alumno_info.nombre
+    alumno_bd.edad = alumno_info.edad
+    alumno_bd.domicilio = alumno_info.domicilio
+    alumno_bd.carrera = alumno_info.carrera
+    alumno_bd.trimestre = alumno_info.trimestre
+    alumno_bd.email = alumno_info.email
+    alumno_bd.password = alumno_info.password
+
+    sesion.add(alumno_bd)
+    sesion.commit()
+
+    sesion.refresh(alumno_bd)
+    return alumno_info
