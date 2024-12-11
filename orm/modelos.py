@@ -2,6 +2,7 @@ from orm.config import BaseClase
 from sqlalchemy import Integer, String, DateTime, Column, ForeignKey
 import datetime
 
+# Mapeo de la clase Alumno, que representa la tabla "alumnos"
 class Alumno(BaseClase):
     __tablename__ = "alumnos"
     id = Column(Integer, primary_key=True)
@@ -14,6 +15,7 @@ class Alumno(BaseClase):
     password = Column(String(100))
     fecha_registro = Column(DateTime(timezone=True),default=datetime.datetime.now)
 
+# Mapeo de la clase Calificacion, que representa la tabla "calificaciones"
 class Calificacion(BaseClase):
     __tablename__ = "calificaciones"
     id = Column(Integer, primary_key=True)
@@ -21,6 +23,7 @@ class Calificacion(BaseClase):
     uea = Column(String(100))
     calificacion = Column(String(100))
 
+# Mapeo de la clase Foto, que representa la tabla "fotos"
 class Foto(BaseClase):
     __tablename__ = "fotos"
     id = Column(Integer, primary_key=True)
