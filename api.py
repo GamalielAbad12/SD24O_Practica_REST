@@ -80,3 +80,7 @@ def eliminar_alumnos_id(id:int, sesion:Session=Depends(generador_sesion)):
 @app.post("/alumnos")
 def agregar_alumnos(nuevo_alumno: esquemas.alumnoBase, sesion: Session=Depends(generador_sesion)):
     return repo.agregar_alumnos(nuevo_alumno, sesion)
+
+@app.put("/alumnos/{id}")
+def actualizar_alumno_id(id:int, alumno_actu: esquemas.alumnoBase, sesion: Session=Depends(generador_sesion)):
+    return repo.actualizar_alumnos_id(id, alumno_actu, sesion)

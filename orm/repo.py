@@ -121,3 +121,21 @@ def agregar_alumnos(alumno_info: esquemas.alumnoBase, sesion:Session):
 
     sesion.refresh(alumno_bd)
     return alumno_info
+
+def actualizar_alumnos_id(id: int, alumno_info: esquemas.alumnoBase, sesion:Session):
+    alumno_bd = obtener_alumnos_id(id, sesion)
+
+    if alumno_bd is not None:
+        alumno_bd.nombre = alumno_info.nombre
+        alumno_bd.edad = alumno_info.edad
+        alumno_bd.domicilio = alumno_info.domicilio
+        alumno_bd.carrera = alumno_info.carrera
+        alumno_bd.trimestre = alumno_info.trimestre
+        alumno_bd.email = alumno_info.email
+        alumno_bd.password = alumno_info.password
+
+        sesion.commit()
+        sesion.refresh(alumno_bd)
+        return alumno_info
+    else: 
+        respuesta = {"Mensaje":"Alumno no encontrado"}
