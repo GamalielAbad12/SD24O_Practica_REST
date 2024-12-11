@@ -20,7 +20,7 @@ def obtener_fotos(sesion:Session):
 #SELECT * FROM app.fotos WHERE id={id_fo}
 def obtener_fotos_id(id:int, sesion:Session):
     print("SELECT * FROM app.fotos WHERE id={id_fo}")
-    return sesion.query(modelos.Foto).filter(modelos.Foto.id==id).all()
+    return sesion.query(modelos.Foto).filter(modelos.Foto.id==id).first()
 
 #SELECT * FROM app.fotos WHERE id_alumnos={id_al}
 def obtener_fotos_alumnos_id(id:int, sesion:Session):
@@ -40,7 +40,7 @@ def obtener_calificaciones_alumno_id(id:int, sesion:Session):
 #SELECT * FROM app.calificaciones WHERE id=id-cal
 def obtener_calificaciones_id(id:int, sesion:Session):
     print("SELECT * FROM app.calificaciones WHERE id={id_cal}")
-    return sesion.query(modelos.Calificacion).filter(modelos.Calificacion.id==id).all()
+    return sesion.query(modelos.Calificacion).filter(modelos.Calificacion.id==id).first()
 
 #DELETE FROM app.alumnos WHERE id_alumnos={id_al}
 def eliminar_alumnos_id(id:int, sesion:Session):
