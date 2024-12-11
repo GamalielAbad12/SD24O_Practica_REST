@@ -1,6 +1,5 @@
 import orm.modelos as modelos
 from sqlalchemy.orm import Session
-from sqlalchemy import and_
 
 #SELECT * FROM app.alumnos
 def obtener_alumnos(sesion:Session):
@@ -52,7 +51,8 @@ def eliminar_alumnos_id(id:int, sesion:Session):
         sesion.delete(alumno_id)
         sesion.commit() 
     
-    return {"Mensaje": "Usuario eliminado"}
+    respuesta = {"Mensaje": "Usuario eliminado"}
+    return respuesta
 
 #DELETE FROM app.calificaciones WHERE id_alumnos={id_al}
 def eliminar_calificaciones_alumnos_id(id:int, sesion:Session):
@@ -64,7 +64,7 @@ def eliminar_calificaciones_alumnos_id(id:int, sesion:Session):
             sesion.delete(calificaciones_alumno)
         sesion.commit()
     
-    respuesta = {"mensaje" : "Calificciones del alumno eliminadas"}
+    respuesta = {"mensaje" : "Calificaciones del alumno eliminadas"}
     return respuesta
 
 #DELETE FROM app.fotos WHERE id_alumnos={id_al}
@@ -80,7 +80,7 @@ def eliminar_fotos_alumnos_id(id:int, sesion:Session):
     respuesta = {"Mensaje" : "Fotos del alumno eliminadas"}
     return respuesta
 
-#DELETE FROM app.fotos WHERE id={id}
+# DELETE FROM app.fotos WHERE id={id}
 def eliminar_fotos_id(id:int, sesion:Session):
     foto_eliminar = obtener_fotos_id(id, sesion)
     print("DELETE FROM app.fotos WHERE id={id}")
@@ -92,7 +92,7 @@ def eliminar_fotos_id(id:int, sesion:Session):
     respuesta = {"Menesaje": "Foto eliminada por id"}
     return respuesta    
 
-#DELETE FROM app.calificaciones WHERE id={id}
+# DELETE FROM app.calificaciones WHERE id={id}
 def eliminar_calificaciones_id(id:int, sesion:Session):
     calificacion_eliminar = obtener_calificaciones_id(id, sesion)
     print("DELETE FROM app.calificaciones WHERE id={id}")
@@ -103,5 +103,3 @@ def eliminar_calificaciones_id(id:int, sesion:Session):
 
     respuesta = {"Mensaje":"Calificación eliminada por id"}
     return respuesta
-    
-
