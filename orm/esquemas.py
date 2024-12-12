@@ -16,4 +16,3 @@ class calificacionBase(BaseModel):
 class fotoBase(BaseModel):
     titulo: str
     descripcion: str
-    ruta: str

@@ -1,6 +1,8 @@
 import orm.modelos as modelos
 import orm.esquemas as esquemas
 from sqlalchemy.orm import Session
+import os
+import uuid
 
 #SELECT * FROM app.alumnos
 def obtener_alumnos(sesion:Session):
@@ -139,3 +141,75 @@ def actualizar_alumnos_id(id: int, alumno_info: esquemas.alumnoBase, sesion:Sess
         return alumno_info
     else: 
         respuesta = {"Mensaje":"Alumno no encontrado"}
+
+def agregar_calificacion_alumno_id(id_alumno: int, calificacion_nueva: esquemas.calificacionBase, sesion:Session):
+    calificacion_bd = modelos.Calificacion()
+    alumno = obtener_alumnos_id(id_alumno, sesion)
+
+    if alumno is not None: 
+        calificacion_bd.id_alumno = id_alumno
+        calificacion_bd.uea = calificacion_nueva.uea
+        calificacion_bd.calificacion = calificacion_nueva.calificacion
+
+        sesion.add(calificacion_bd)
+        sesion.commit()
+        return calificacion_nueva
+    else: 
+        respuesta = {"Mensaje":"Usuario no encontrado"}
+        return respuesta
+    
+def actualizar_calificaciones_id(id:int, calificacion_info: esquemas.calificacionBase, sesion:Session):
+    calificacion_bd = obtener_calificaciones_id(id, sesion)
+
+    if calificacion_bd is not None:
+        calificacion_bd.uea = calificacion_info.uea
+        calificacion_bd.calificacion = calificacion_info.calificacion
+
+        sesion.commit()
+        sesion.refresh(calificacion_bd)
+        return calificacion_info
+    else:
+        respuesta = {"Mensaje":"Calificacion no encontrada"}
+        return respuesta
+    
+def agregar_fotos_alumnos_id(id_alumno:int, foto_nueva: esquemas.fotoBase, sesion:Session):
+    foto_bd = modelos.Foto()
+    alumno = obtener_alumnos_id(id_alumno, sesion)
+    
+    home_usuario = os.path.expanduser("~")
+    carpeta = f"{home_usuario}\carpeta"
+
+    nombre_archivo = uuid.uuid4()
+    extencion_foto = os.path.basename(foto_nueva.titulo)
+
+    ruta_imagen = f"{carpeta}\foto{nombre_archivo}{extencion_foto}"
+
+
+    if alumno is not None:
+        foto_bd.id_alumno = id_alumno
+        foto_bd.titulo = foto_nueva.titulo
+        foto_bd.descripcion = foto_nueva.descripcion
+        foto_bd.ruta = ruta_imagen
+
+        sesion.add(foto_bd)
+        sesion.commit()
+        return foto_nueva
+    else:
+        respuesta = {"Mensaje":"Uusario no encontrado"}
+        return respuesta
+    
+def actualizar_fotos_id(id_alumno:int, foto_info: esquemas.fotoBase, sesion:Session):
+    foto_bd = obtener_fotos_id(id_alumno, sesion)
+
+    if foto_bd is not None: 
+        foto_bd.titulo = foto_info.titulo
+        foto_bd.descripcion = foto_info.descripcion
+
+        sesion.commit()
+        sesion.refresh(foto_bd)
+        return foto_info
+    else:
+        respuesta = {"Mensjae":"Foto no encontrada"}
+        return respuesta  
+        
+

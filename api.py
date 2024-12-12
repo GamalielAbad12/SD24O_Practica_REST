@@ -84,3 +84,20 @@ def agregar_alumnos(nuevo_alumno: esquemas.alumnoBase, sesion: Session=Depends(g
 @app.put("/alumnos/{id}")
 def actualizar_alumno_id(id:int, alumno_actu: esquemas.alumnoBase, sesion: Session=Depends(generador_sesion)):
     return repo.actualizar_alumnos_id(id, alumno_actu, sesion)
+
+@app.post("/alumnos/{id}/calificaciones")
+def agregar_calificacion_alumno_id(id:int, nueva_calificacion: esquemas.calificacionBase, sesion: Session=Depends(generador_sesion)):
+    return repo.agregar_calificacion_alumno_id(id, nueva_calificacion, sesion)
+
+@app.put("/calificaciones/{id}")
+def actualizar_calificaciones_id(id:int, calificacion_actu: esquemas.calificacionBase, sesion: Session=Depends(generador_sesion)):
+    return repo.actualizar_calificaciones_id(id, calificacion_actu, sesion)
+
+@app.post("/alumnos/{id}/fotos")
+def agregar_fotos_alumnos_id(id:int, nueva_fotos: esquemas.fotoBase, sesion: Session=Depends(generador_sesion)):
+    return repo.agregar_fotos_alumnos_id(id, nueva_fotos, sesion)
+
+@app.put("/fotos/{id}")
+def actualizar_fotos_id(id:int, foto_actu: esquemas.fotoBase, sesion: Session=Depends(generador_sesion)):
+    return repo.actualizar_fotos_id(id, foto_actu, sesion)
+
