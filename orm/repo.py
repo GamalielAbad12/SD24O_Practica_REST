@@ -141,6 +141,7 @@ def actualizar_alumnos_id(id: int, alumno_info: esquemas.alumnoBase, sesion:Sess
         return alumno_info
     else: 
         respuesta = {"Mensaje":"Alumno no encontrado"}
+        return respuesta
 
 def agregar_calificacion_alumno_id(id_alumno: int, calificacion_nueva: esquemas.calificacionBase, sesion:Session):
     calificacion_bd = modelos.Calificacion()
@@ -182,7 +183,7 @@ def agregar_fotos_alumnos_id(id_alumno:int, foto_nueva: esquemas.fotoBase, sesio
     nombre_archivo = uuid.uuid4()
     extencion_foto = os.path.basename(foto_nueva.titulo)
 
-    ruta_imagen = f"{carpeta}\foto{nombre_archivo}{extencion_foto}"
+    ruta_imagen = f'{carpeta}\foto{nombre_archivo}{extencion_foto}'
 
 
     if alumno is not None:
